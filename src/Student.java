@@ -4,6 +4,8 @@ import java.util.Arrays;
  * Studentクラス
  */
 public class Student {
+    /** for文カウンター変数の初期値 */
+    public static final int ZERO                = 0;
     /** 欠席している場合 */
     public static final int NON_TESTER          = -1;
     /** 欠席者の点数 */
@@ -28,7 +30,7 @@ public class Student {
         this.name = name;
 
         /* 得点から再試験者を判定 */
-        for (int i = 0; i < scores.length; i++) {
+        for (int i = ZERO; i < scores.length; i++) {
             /* 欠席の場合 */
             if (scores[i] == NON_TESTER) {
                 scores[i] = NON_TESTER_SCORE;
