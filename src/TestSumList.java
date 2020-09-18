@@ -27,7 +27,7 @@ public class TestSumList {
     /** for文カウンター変数の初期値 */
     public static final int     ZERO            = 0;
     /** データファイルのパス */
-    public static final String  FILE_PATH       = "D:\\JavaProjects\\TestSumList\\testdata.txt";
+    public static final String  FILE_PATH       = "D:\\Users\\5191007\\Documents\\ws\\TestSumList\\testdata.txt";
     /** データファイルの文字コード */
     public static final String  CHARSET         = "UTF-8";
     /** 入出力エラーメッセージ */
@@ -102,9 +102,11 @@ public class TestSumList {
 
             /* インデント数の設定 */
             int rank_len = String.valueOf(students.size()).length();
-            int name_len = students.stream().max((s1, s2) -> s1.name.length() - s2.name.length()).get().name.length();
             int [] scores_len = Arrays.stream(scores_max).map(s -> String.valueOf(s).length()).toArray();
-
+            
+            /* 氏名の最大長 */
+            int name_max_len = students.stream().max((s1, s2) -> s1.name.length() - s2.name.length()).get().name.length();
+            
             /* 一覧 */
             for (int i = ZERO; i < students.size(); i++) {
                 /* 合計得点の最大値にマークを付ける */
@@ -112,6 +114,9 @@ public class TestSumList {
 
                 /* ランクを求める */
                 int rank = prev_rank == PREV_RANK_INIT || students.get(i).getSum() != students.get(i - PREV).getSum() ? ++prev_rank : prev_rank;
+
+                /* 氏名のインデント数の設定 */
+                int name_len = name_max_len + name_max_len - students.get(i).name.length();
 
                 /* フォーマットして出力 */
                 String result = String.format(FORMAT_1 + rank_len + FORMAT_2 + name_len + FORMAT_3, rank, sum_max_mark, students.get(i).name);
