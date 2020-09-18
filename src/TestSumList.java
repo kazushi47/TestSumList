@@ -90,7 +90,7 @@ public class TestSumList {
         /* 合計得点の降順、氏名の昇順で並び替え */
         students = students.stream().sorted(Comparator.comparing(Student::getSum, Comparator.reverseOrder()).thenComparing(s -> s.name)).collect(Collectors.toList());
 
-        /* 最高点を算出 */
+        /* 最高点を算 出 */
         int sum_max = students.stream().max(Comparator.comparingInt(Student::getSum)).get().getSum();
         int [] scores_max = new int[SCORES_QUANTITY];
         for (counter = ZERO; counter < SCORES_QUANTITY; counter++) {
