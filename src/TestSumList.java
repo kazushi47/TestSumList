@@ -22,6 +22,8 @@ public class TestSumList {
     public static final int     NAME_INDEX_NEXT = NAME_INDEX + 1;
     /** ランクを求める際のひとつ前のインデックス算出用 */
     public static final int     PREV            = 1;
+    /** ランク算出用 */
+    public static final int     ONE             = 1;
     /** prev_rankの初期値 */
     public static final int     PREV_RANK_INIT  = 0;
     /** for文カウンター変数の初期値 */
@@ -113,7 +115,8 @@ public class TestSumList {
                 String sum_max_mark = students.get(i).getSum() == sum_max ? MAX_MARK : NON_MAX_MARK;
 
                 /* ランクを求める */
-                int rank = prev_rank == PREV_RANK_INIT || students.get(i).getSum() != students.get(i - PREV).getSum() ? ++prev_rank : prev_rank;
+                int rank = prev_rank == PREV_RANK_INIT || students.get(i).getSum() != students.get(i - PREV).getSum() ? i + ONE : prev_rank;
+                prev_rank = rank;
 
                 /* 氏名のインデント数の設定 */
                 int name_len = name_max_len + name_max_len - students.get(i).name.length();
