@@ -1,0 +1,27 @@
+行読み込み
+List<Student> students  に
+Files.lines(path,charcode)
+filterで不正データ排除
+mapでカンマ区切り
+mapでStudentクラスを作成
+collectでList<Student>に格納
+
+IOException例外 -> sysout(E001)     System.exit(ABNORMAL)
+
+
+再試験者抽出
+List<String> retesters  に
+studentsをストリーム化
+filterで再試験者のみ抽出
+mapでデータの名前のみ抽出
+collectでListに格納
+
+
+得点の昇順、名前の昇順に並び替え
+studentsをストリーム化
+sortedで合計点の降順に並び替え  <-  Comparator.reverseOrder()で降順
+thenComparingで名前の昇順に並び替え
+
+
+
+
