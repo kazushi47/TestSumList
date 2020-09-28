@@ -44,7 +44,7 @@ public class TestSumList {
     /** for文カウンター変数の初期値 */
     public static final int     ZERO            = 0;
     /** データファイルのパス */
-    public static final String  FILE_PATH       = "D:\\Users\\5191007\\Documents\\ws\\TestSumList\\testdata.txt";
+    public static final String  FILE_PATH       = "C:\\Users\\5191007\\Desktop\\wsjava\\TestSumList\\bin\\testsum.txt";
     /** データファイルの文字コード */
     public static final String  CHARSET         = "UTF-8";
     /** 入出力エラーメッセージ */
