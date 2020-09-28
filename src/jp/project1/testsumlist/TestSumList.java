@@ -46,13 +46,13 @@ public class TestSumList {
     /** データファイルのパス */
     public static final String  FILE_PATH       = "C:\\Users\\5191007\\Desktop\\wsjava\\TestSumList\\bin\\testsum.txt";
     /** データファイルの文字コード */
-    public static final String  CHARSET         = "UTF-8";
+    public static final String  CHARSET         = "MS932";
     /** 入出力エラーメッセージ */
     public static final String  E001            = "I/O エラーが発生しました。";
     /** データ区切り文字 */
     public static final String  SPLITER         = ",";
     /** 正常データの正規表現 */
-    public static final String  REGEX           = "^(?:\\W+)(?:" + SPLITER + "(?:-1|[0-9]?[0-9]|100)){" + SCORES_QUANTITY + "}$";
+    public static final String  REGEX           = "\\A(?:[^\\w,]+)(?:" + SPLITER + "(?:-1|[0-9]?[0-9]|100)){" + SCORES_QUANTITY + "}\\Z";
     /** 出力フォーマット用 */
     public static final String  FORMAT_1        = "%";
     /** 出力フォーマット用 */
