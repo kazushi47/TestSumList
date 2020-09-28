@@ -28,12 +28,14 @@ public class Student {
     /** 赤点 */
     public static final int RED_SCORE           = 25;
 
+    /** 順位 */
+    protected int           rank;
     /** 各科目の得点 */
-    public int []           scores;
+    private int []          scores;
     /** 氏名 */
-    public String           name;
+    private String          name;
     /** 再試験に該当するかどうか */
-    public boolean          isRetester;
+    private boolean          isRetester;
 
     /**
      * 初期化用コンストラクタ
@@ -60,6 +62,57 @@ public class Student {
 
         /* 得点を格納 */
         this.scores = scores;
+    }
+
+/***************************************************************************************************
+ * 　メソッド(クラス)名：getScores(Student)
+ *
+ * 　メソッド名：   getScores
+ * 　概要：			各科目の得点を取得 
+ * 　引数：			なし
+ * 　返却値:        int[]型scores
+ *   備考:          なし
+ **************************************************************************************************/
+    /**
+     * 各科目の得点を取得
+     * @return int[]型scores
+     */
+    public int[] getScores() {
+        return scores;
+    }
+
+/***************************************************************************************************
+ * 　メソッド(クラス)名：getName(Student)
+ *
+ * 　メソッド名：   getName
+ * 　概要：			氏名を取得 
+ * 　引数：			なし
+ * 　返却値:        String型name
+ *   備考:          なし
+ **************************************************************************************************/
+    /**
+     * 氏名を取得
+     * @return String型name
+     */
+    public String getName() {
+        return name;
+    }
+
+/***************************************************************************************************
+ * 　メソッド(クラス)名：getIsRetester(Student)
+ *
+ * 　メソッド名：   getIsRetester
+ * 　概要：			再試験に該当するかどうか 
+ * 　引数：			なし
+ * 　返却値:        boolean型isRetester
+ *   備考:          なし
+ **************************************************************************************************/
+    /**
+     * 再試験に該当するかどうか
+     * @return boolean型isRetester
+     */
+    public boolean getIsRetester() {
+        return isRetester;
     }
 
 /***************************************************************************************************
@@ -94,5 +147,5 @@ public class Student {
     public String toString() {
         return "Student [isRetester=" + isRetester + ", name=" + name + ", scores=" + Arrays.toString(scores) + "]";
     }
-    
+
 }

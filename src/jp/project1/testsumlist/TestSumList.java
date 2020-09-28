@@ -44,7 +44,7 @@ public class TestSumList {
     /** for文カウンター変数の初期値 */
     public static final int     ZERO            = 0;
     /** データファイルのパス */
-    public static final String  FILE_PATH       = "C:\\Users\\5191007\\Desktop\\wsjava\\TestSumList\\bin\\testsum.txt";
+    public static final String  FILE_PATH       = "C:/Users/5191007/Desktop/wsjava/TestSumList/bin/testsum.txt";
     /** データファイルの文字コード */
     public static final String  CHARSET         = "MS932";
     /** 入出力エラーメッセージ */
@@ -110,52 +110,56 @@ public class TestSumList {
         }
 
         /* 再試験者の氏名を抽出 */
-        List<String> retesters = students.stream().filter(s -> s.isRetester).map(s -> s.name).collect(Collectors.toList());
-
-        /* 合計得点の降順、氏名の昇順で並び替え */
-        students = students.stream().sorted(Comparator.comparing(Student::getSum, Comparator.reverseOrder()).thenComparing(s -> s.name)).collect(Collectors.toList());
-
-        /* 最高点を算出 */
-        int sum_max = students.stream().max(Comparator.comparingInt(Student::getSum)).get().getSum();
-        int [] scores_max = new int[SCORES_QUANTITY];
-        for (counter = ZERO; counter < SCORES_QUANTITY; counter++) {
-            scores_max[counter] = students.stream().mapToInt(s -> s.scores[counter]).max().getAsInt();
-        }
+        List<String> retesters = students.stream().filter(Student::getIsRetester).map(Student::getName).collect(Collectors.toList());
 
         /* 試験成績順位を出力 */
-        if (students.stream().anyMatch(s -> !s.isRetester)) {
+        if (students.stream().anyMatch(Student::getIsRetester)) {
             /* 見出し */
             System.out.println(TITLE_1);
 
+            /* 合計得点の降順、氏名の昇順で並び替え */
+            students = students.stream().sorted(Comparator.comparing(Student::getSum, Comparator.reverseOrder()).thenComparing(Student::getName)).collect(Collectors.toList());
+
+            /* 順位を算出 */
+            for (int i = ZERO; i < students.size(); i++) {
+                int rank = prev_rank == PREV_RANK_INIT || students.get(i).getSum() != students.get(i - PREV).getSum() ? i + ONE : prev_rank;
+                students.get(i).rank = rank;
+                prev_rank = rank;
+            }
+    
+            /* 最高点を算出 */
+            int sum_max = students.stream().max(Comparator.comparingInt(Student::getSum)).get().getSum();
+            int [] scores_max = new int[SCORES_QUANTITY];
+            for (counter = ZERO; counter < SCORES_QUANTITY; counter++) {
+                scores_max[counter] = students.stream().map(Student::getScores).mapToInt(s -> s[counter]).max().getAsInt();
+            }
+
             /* インデント数の設定 */
-            int rank_len = String.valueOf(students.size()).length();
+            int rank_len = String.valueOf(students.stream().max(Comparator.comparingInt(s -> s.rank)).get().rank).length();
             int [] scores_len = Arrays.stream(scores_max).map(s -> String.valueOf(s).length()).toArray();
             
             /* 氏名の最大長 */
-            int name_max_len = students.stream().max((s1, s2) -> s1.name.length() - s2.name.length()).get().name.length();
+            int name_max_len = students.stream().max((s1, s2) -> s1.getName().length() - s2.getName().length()).get().getName().length();
             
             /* 一覧 */
-            for (int i = ZERO; i < students.size(); i++) {
+            students.forEach(s -> {
                 /* 合計得点の最大値にマークを付ける */
-                String sum_max_mark = students.get(i).getSum() == sum_max ? MAX_MARK : NON_MAX_MARK;
-
-                /* ランクを求める */
-                int rank = prev_rank == PREV_RANK_INIT || students.get(i).getSum() != students.get(i - PREV).getSum() ? i + ONE : prev_rank;
-                prev_rank = rank;
-
+                String sum_max_mark = s.getSum() == sum_max ? MAX_MARK : NON_MAX_MARK;
+    
                 /* 氏名のインデント数の設定 */
-                int name_len = name_max_len + name_max_len - students.get(i).name.length();
-
+                int name_len = name_max_len + name_max_len - s.getName().length();
+    
                 /* フォーマットして出力 */
-                String result = String.format(FORMAT_1 + rank_len + FORMAT_2 + name_len + FORMAT_3, rank, sum_max_mark, students.get(i).name);
+                String result = String.format(FORMAT_1 + rank_len + FORMAT_2 + name_len + FORMAT_3, s.rank, sum_max_mark, s.getName());
+                int [] scores = s.getScores();
                 for (int j = ZERO; j < SCORES_QUANTITY; j++) {
                     /* 各科目の最高得点にマークを付ける */
-                    String score_max_mark = students.get(i).scores[j] == scores_max[j] ? MAX_MARK : NON_MAX_MARK;
+                    String score_max_mark = scores[j] == scores_max[j] ? MAX_MARK : NON_MAX_MARK;
                     
-                    result += String.format(FORMAT_4 + scores_len[j] + FORMAT_5, score_max_mark, students.get(i).scores[j]);
+                    result += String.format(FORMAT_4 + scores_len[j] + FORMAT_5, score_max_mark, scores[j]);
                 }
                 System.out.println(result);
-            }
+            });
         }
 
         /* 再試験者を出力 */
