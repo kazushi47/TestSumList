@@ -113,7 +113,7 @@ public class TestSumList {
         List<String> retesters = students.stream().filter(Student::getIsRetester).map(Student::getName).collect(Collectors.toList());
 
         /* 試験成績順位を出力 */
-        if (students.stream().anyMatch(Student::getIsRetester)) {
+        if (students.stream().anyMatch(s -> !s.getIsRetester())) {
             /* 見出し */
             System.out.println(TITLE_1);
 
