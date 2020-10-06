@@ -47,8 +47,10 @@ public class TestSumList {
     public static final String  FILE_PATH       = "C:/Users/5191007/Desktop/wsjava/TestSumList/bin/testsum.txt";
     /** データファイルの文字コード */
     public static final String  CHARSET         = "MS932";
-    /** 入出力エラーメッセージ */
-    public static final String  E001            = "I/O エラーが発生しました。";
+    /** 入出力エラー時メッセージ */
+    public static final String  E001            = "入出力エラーが発生しました。";
+    /** 異常終了時メッセージ */
+    public static final String  I001            = "強制終了します。";
     /** データ区切り文字 */
     public static final String  SPLITER         = ",";
     /** 正常データの正規表現 */
@@ -64,11 +66,11 @@ public class TestSumList {
     /** 出力フォーマット用 */
     public static final String  FORMAT_5        = "d";
     /** 試験成績順位の見出し */
-    public static final String  TITLE_1         = "【試験成績順位】";
+    public static final String  RANKING_TITLE   = "【試験成績順位】";
     /** 再試験者の見出し */
-    public static final String  TITLE_2         = "【再試験者】";
+    public static final String  RETESTERS_TITLE = "【再試験者】";
     /** 再試験該当者なしの場合のメッセージ */
-    public static final String  TITLE_3         = "該当者なし";
+    public static final String  NON_RETESTER_MS = "該当者なし";
     /** 得点の最大値に付けるマーク */
     public static final String  MAX_MARK        = "*";
     /** 得点の最大値以外に付けるマーク */
@@ -105,7 +107,7 @@ public class TestSumList {
                 .map(s -> new Student(s[NAME_INDEX], Arrays.stream(s).skip(NAME_INDEX_NEXT).mapToInt(Integer::parseInt).toArray()))
                 .collect(Collectors.toList());
         } catch (IOException e) {
-            System.out.println(E001);
+            System.out.println(E001 + I001);
             System.exit(ABNORMAL);
         }
 
@@ -115,7 +117,7 @@ public class TestSumList {
         /* 試験成績順位を出力 */
         if (students.stream().anyMatch(s -> !s.getIsRetester())) {
             /* 見出し */
-            System.out.println(TITLE_1);
+            System.out.println(RANKING_TITLE);
 
             /* 合計得点の降順、氏名の昇順で並び替え */
             students = students.stream().sorted(Comparator.comparing(Student::getSum, Comparator.reverseOrder()).thenComparing(Student::getName)).collect(Collectors.toList());
@@ -163,13 +165,13 @@ public class TestSumList {
         }
 
         /* 再試験者を出力 */
-        System.out.println(TITLE_2);
+        System.out.println(RETESTERS_TITLE);
         if (!retesters.isEmpty()) {
             /* 該当者ありの場合 */
             retesters.forEach(System.out::println);
         } else {
             /* 該当者なしの場合 */
-            System.out.println(TITLE_3);
+            System.out.println(NON_RETESTER_MS);
         }
     }
 }
