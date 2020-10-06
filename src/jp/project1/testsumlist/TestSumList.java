@@ -6,9 +6,9 @@ package jp.project1.testsumlist;
  * 　プログラム名：	TestSumList
  * 　概要：			テキストファイル内の試験結果データを集計し表示
  * 　作成日付：		2020/09/25
- * 　版数：			1.0版
+ * 　版数：			1.1版
  * 　作成者(班:PL)：杉谷一祝(1:京岡大純)
- * 　修正履歴：		なし
+ * 　修正履歴：		1.1版   順位の算出及びインデント整列を修正
  * 　備考：			なし
  * 　課題No：		3
  **************************************************************************************************/
@@ -122,7 +122,7 @@ public class TestSumList {
             /* 合計得点の降順、氏名の昇順で並び替え */
             students = students.stream().sorted(Comparator.comparing(Student::getSum, Comparator.reverseOrder()).thenComparing(Student::getName)).collect(Collectors.toList());
 
-            /* 順位を算出 */
+            /* 順位を算出　1.1版 */
             for (int i = ZERO; i < students.size(); i++) {
                 int rank = prev_rank == PREV_RANK_INIT || students.get(i).getSum() != students.get(i - PREV).getSum() ? i + ONE : prev_rank;
                 students.get(i).rank = rank;
@@ -137,7 +137,7 @@ public class TestSumList {
             }
 
             /* インデント数の設定 */
-            int rank_len = String.valueOf(students.stream().max(Comparator.comparingInt(s -> s.rank)).get().rank).length();
+            int rank_len = String.valueOf(students.stream().max(Comparator.comparingInt(s -> s.rank)).get().rank).length();     // 1.1版
             int [] scores_len = Arrays.stream(scores_max).map(s -> String.valueOf(s).length()).toArray();
             
             /* 氏名の最大長 */
