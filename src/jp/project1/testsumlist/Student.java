@@ -6,9 +6,9 @@ package jp.project1.testsumlist;
  * 　プログラム名：	Student
  * 　概要：			試験結果データ用
  * 　作成日付：		2020/09/25
- * 　版数：			1.0版
+ * 　版数：			1.1版
  * 　作成者(班:PL)：杉谷一祝(1:京岡大純)
- * 　修正履歴：		なし
+ * 　修正履歴：		1.1版   フィールドにint型変数rankを追加
  * 　備考：			なし
  * 　課題No：		3
  **************************************************************************************************/
@@ -28,14 +28,14 @@ public class Student {
     /** 赤点 */
     public static final int RED_SCORE           = 25;
 
-    /** 順位 */
+    /** 順位　1.1版 */
     protected int           rank;
     /** 各科目の得点 */
     private int []          scores;
     /** 氏名 */
     private String          name;
     /** 再試験に該当するかどうか */
-    private boolean          isRetester;
+    private boolean         isRetester;
 
     /**
      * 初期化用コンストラクタ
