@@ -54,7 +54,7 @@ public class TestSumList {
     /** データ区切り文字 */
     public static final String  SPLITER         = ",";
     /** 正常データの正規表現 */
-    public static final String  REGEX           = "\\A(?:[^\\w,]+)(?:" + SPLITER + "(?:-1|[0-9]?[0-9]|100)){" + SCORES_QUANTITY + "}\\Z";
+    public static final String  REGEX           = "\\A(?:[^\\w" + SPLITER + "]+)(?:" + SPLITER + "(?:-1|[0-9]?[0-9]|100)){" + SCORES_QUANTITY + "}\\Z";
     /** 出力フォーマット用 */
     public static final String  FORMAT_1        = "%";
     /** 出力フォーマット用 */
